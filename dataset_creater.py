@@ -1,6 +1,11 @@
 import cv2
 import numpy as np
 import sqlite3
+import os
+
+# Siguro që folderi 'dataSet' ekziston
+if not os.path.exists('dataSet'):
+    os.makedirs('dataSet')
 
 faceDetect = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cam = cv2.VideoCapture(0)
@@ -14,9 +19,9 @@ def insertOrUpdate(Name, Age):
         Id = data[0]
     else:
         conn.execute("INSERT INTO Students (Name, Age) VALUES(?,?)", (Name, Age))
+        conn.commit()
         Id = cursor.lastrowid
 
-    conn.commit()
     conn.close()
     return Id
 
@@ -34,11 +39,17 @@ while True:
 
     for (x, y, w, h) in faces:
         sampleNum += 1
-        cv2.imwrite(f"dataSet/User.{Id}.{sampleNum}.jpg", gray[y:y+h, x:x+w])
+        saved = cv2.imwrite(f"dataSet/User.{Id}.{sampleNum}.jpg", gray[y:y+h, x:x+w])
+        if saved:
+            print(f"Image {sampleNum} saved successfully.")
+        else:
+            print(f"Failed to save image {sampleNum}.")
         cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
         cv2.waitKey(100)
+    
     cv2.imshow('Face', img)
     cv2.waitKey(1)
+    
     if sampleNum > 20:
         break
 
