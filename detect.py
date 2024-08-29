@@ -11,7 +11,7 @@ recognizer.read("recognizer/training.yml")
 
 def getprofile(id):
     conn = sqlite3.connect("sqlite.db")
-    cursor = conn.execute("SELECT * FROM users WHERE Id=?", (id,))
+    cursor = conn.execute("SELECT * FROM Students WHERE Id=?", (id,))
     profile = None
 
     for row in cursor:
@@ -29,8 +29,8 @@ while True:
         profile = getprofile(id)
         print (profile)
         if profile is not None:
-            cv2.putText(img,"Name"+ str(profile[1]), (x, y+h+20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 127), 2)
-            cv2.putText(img,"Age"+ str(profile[2]), (x, y+h+45), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 127), 2)
+            cv2.putText(img,"Name: "+ str(profile[1]), (x, y+h+20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 127), 2)
+            cv2.putText(img,"Age: "+ str(profile[2]), (x, y+h+45), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 127), 2)
     cv2.imshow("Face Recognition", img)
     if cv2.waitKey(1) == ord('q'):
         break
