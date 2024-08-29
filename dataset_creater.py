@@ -44,3 +44,5 @@ while(True):
     if(sampleNum>20):
         break
    
+cam.release()
+cv2.destroyAllWindows()
