@@ -20,3 +20,10 @@ def insertOrUpdate(Id, Name, Age):
 
     conn.commit()
     conn.close()
+
+Id= input('Enter User Id')
+Name= input('Enter User Name')
+Age= input('Enter User Age')
+
+insertOrUpdate(Id, Name, Age)
+
