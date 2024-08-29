@@ -26,6 +26,7 @@ def insertOrUpdate(Name, Age):
 
 Name = input('Enter User Name: ')
 Age = input('Enter User Age: ')
+print('Smile for the camera :))))')
 
 Id = insertOrUpdate(Name, Age)
 
