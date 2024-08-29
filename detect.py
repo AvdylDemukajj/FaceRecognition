@@ -18,3 +18,21 @@ def getprofile(id):
         profile = row
     conn.close()
     return profile
+
+while True:
+    ret,img = cam.read()
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = facedetect.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
+    for(x,y,w,h) in faces:
+        cv2.rectangle(img, (x,y), (x+w, y+h), (0, 255, 0), 2)
+        id, conf = recognizer.predict(gray[y:y+h, x:x+w])
+        profile = getprofile(id)
+        print (profile)
+        if profile is not None:
+            cv2.putText(img,"Name"+ str(profile[1]), (x, y+h+20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 127), 2)
+            cv2.putText(img,"Age"+ str(profile[2]), (x, y+h+45), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 127), 2)
+    cv2.imshow("Face Recognition", img)
+    if cv2.waitKey(1) == ord('q'):
+        break
+
+
