@@ -3,7 +3,6 @@ import numpy as np
 import sqlite3
 import os
 
-# Siguro që folderi 'dataSet' ekziston
 if not os.path.exists('dataSet'):
     os.makedirs('dataSet')
 
@@ -50,7 +49,7 @@ while True:
     cv2.imshow('Face', img)
     cv2.waitKey(1)
     
-    if sampleNum > 20:
+    if sampleNum >= 20:
         break
 
 cam.release()
